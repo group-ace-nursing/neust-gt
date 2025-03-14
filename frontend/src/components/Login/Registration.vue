@@ -191,7 +191,6 @@
                 class="full-width q-pa-md btn-custom-border" 
                 unelevated
                 :loading="loginLoad"
-                :disable="enableRegister"
                 no-caps 
                 color="primary" 
                 label="Register"

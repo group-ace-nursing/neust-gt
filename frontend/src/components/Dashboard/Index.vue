@@ -46,18 +46,28 @@
             <div class="col-12 col-xs-12 col-sm-12 col-md-12 q-pa-sm">
                 <q-banner v-if="userDetails.surveyTaken === '0'"  inline-actions rounded class="bg-orange text-white">
                     <template v-slot:avatar>
+                        <q-icon name="contact_support" color="white" />
+                    </template>
+                    It seems you didn't taken the survey yet. Are you available to answer it now?
+
+                    <template v-slot:action>
+                        <q-btn to="/user/survey" flat label="Take the Survey" />
+                    </template>
+                </q-banner>
+                <q-banner v-if="userDetails.surveyTaken === '1'"  inline-actions rounded class="bg-teal-5 text-white">
+                    <template v-slot:avatar>
                         <q-icon name="error_outline" color="white" />
                     </template>
                     Looks like you didn't complete your application survey. Are you available to finish it now?
 
                     <template v-slot:action>
-                        <q-btn flat label="Take the Survey" />
+                        <q-btn to="/user/survey" flat label="Continue Survey" />
                     </template>
                 </q-banner>
             </div>
         </div>
 
-        
+
     </div>
 </template>
 

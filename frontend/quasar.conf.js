@@ -48,7 +48,7 @@ module.exports = configure(function (ctx) {
     build: {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       env: {
-        API_BASE: ctx.dev ? 'http://localhost:8080/index.php/neust_gt/api/v1' : 'https://distribution.tenmei.shop/backend/public/index.php/mlrs/api/v1'
+        API_BASE: ctx.dev ? 'http://localhost:8080/index.php/neust_gt/api/v1' : 'https://darkgrey-eel-214066.hostingersite.com/backend/public/index.php/neust_gt/api/v1'
       },
       // transpile: false,
       // publicPath: '/',

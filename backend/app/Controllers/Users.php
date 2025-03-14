@@ -91,6 +91,97 @@ class Users extends BaseController
         // exit();
         
     }
+
+    public function submitSurvey(){
+        //Get API Request Data from NuxtJs
+        $data = $this->request->getJSON();
+        
+        // First Update the table user for some details
+        // degreeDetails, reasonsTogetTheCourse, isEmployed, reasonToPursue, reasonToPursueOthers, surveyTaken
+        $where = [
+            "id" => $data->userId
+        ];
+        $setData = [
+            "degreeDetails" => json_encode($data->degreeDetails),
+            "reasonsTogetTheCourse" => json_encode($data->reasonsTogetTheCourse),
+            "isEmployed" => $data->isEmployed,
+            "reasonToPursue" => json_encode($data->reasonToPursue),
+            "reasonToPursueOthers" => $data->reasonToPursueOthers,
+            "surveyTaken" => 2
+        ];
+        
+        $query = $this->userModel->updateUserInfo($where, $setData);
+        
+        if($query){
+
+            // Inserts on tbl Exam & Employment & Trainings
+            foreach($data->trainings as $key => $value){
+                $value->gradId = $data->userId;
+                $trainings = json_decode(json_encode($value), true);
+                
+                $this->userModel->insertTrainings($trainings);
+            }
+
+            foreach($data->examPassed as $key => $value){
+                $value->gradId = $data->userId;
+                $exam = json_decode(json_encode($value), true);
+                
+                $this->userModel->insertExam($exam);
+            }
+
+            $employeeData = [
+                'gradId' => $data->userId,
+                'employmentStatus' => $data->employmentStatus,
+                'reasonNotEmployed' => json_encode($data->reasonNotEmployed),
+                'othersReason' => $data->othersReason,
+                'occupation' => $data->occupation,
+                'ifSelfEmployed' => $data->ifSelfEmployed,
+                'typeOfCompany' => $data->typeOfCompany,
+                'placeOfWork' => $data->placeOfWork,
+                'isFirstJob' => $data->isFirstJob,
+                'reasonsToStayJob' => json_encode($data->reasonToStayJob),
+                'reasonToStayJobOthers' => $data->reasonToStayJobOthers,
+                'reasonToAcceptJob' => json_encode($data->reasonToAcceptJob),
+                'reasonToAcceptJobOthers' => $data->reasonToAcceptJobOthers,
+                'reasonToChangeJob' => json_encode($data->reasonToChangeJob),
+                'reasonToChangeJobOthers' => $data->reasonToChangeJobOthers,
+                'stayInJob' => $data->stayInJob,
+                'stayInJobOthers' => $data->stayInJobOthers,
+                'howLongToGetJob' => $data->howLongToGetJob,
+                'howLongToGetJobOthers' => $data->howLongToGetJobOthers,
+                'howFirstJobFind' => $data->howFirstJobFind,
+                'howFirstJobFindOthers' => $data->howFirstJobFindOthers,
+                'jobLevel' => json_encode($data->jobLevel),
+                'grossMonthly' => $data->grossMonthly,
+                'competenciesLearn' => json_encode($data->competenciesLearn),
+                'competenciesLearnOthers' => $data->competenciesLearnOthers,
+                'recommendation' => $data->recommendation
+            ];
+            $this->userModel->insertEmployement($employeeData);
+
+
+            $response = [
+                'title' => 'Survey Submitted',
+                'message' => 'User data has been successfully saved.'
+            ];
+ 
+            return $this->response
+                    ->setStatusCode(200)
+                    ->setContentType('application/json')
+                    ->setBody(json_encode($response));
+            
+        } else {
+            $response = [
+                'title' => 'Registration Failed!',
+                'message' => 'Please check your data.'
+            ];
+ 
+            return $this->response
+                    ->setStatusCode(400)
+                    ->setContentType('application/json')
+                    ->setBody(json_encode($response));
+        }
+    }
     
     public function updateUser(){
         //Get API Request Data from NuxtJs

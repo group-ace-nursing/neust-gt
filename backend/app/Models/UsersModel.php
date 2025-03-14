@@ -9,6 +9,9 @@ class UsersModel extends Model
     protected $table      = 'tblusers';
     protected $typeTable  = 'tblusertypes';
     protected $addressTable = 'tbladdresses';
+    protected $trainingTable = 'tbltrainings';
+    protected $employmentTable = 'tblemployment';
+    protected $examTable = 'tblexams';
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -29,13 +32,13 @@ class UsersModel extends Model
         'courseId',
         'universityId',
         'yearGraduated',
-        'awards',
         'educationalStatus',
-        'undergradHighDegree',
-        'graduateHighDegree',
+        'degreeDetails',
+        'reasonsTogetTheCourse',
         'isEmployed',
         'reasonNotEmployed',
-        'othersReason',
+        'reasonToPursue',
+        'reasonToPursueOthers',
         'termsAccepted',
         'surveyTaken',
         'userType'
@@ -95,6 +98,21 @@ class UsersModel extends Model
         return $query ? true : false;
 
     }
+
+    public function insertTrainings($data){
+        $query = $this->db->table($this->trainingTable)->insert($data);
+        return $query ? true : false;
+    }
+    public function insertEmployement($data){
+        $query = $this->db->table($this->employmentTable)->insert($data);
+        return $query ? true : false;
+    }
+    public function insertExam($data){
+        $query = $this->db->table($this->examTable)->insert($data);
+        return $query ? true : false;
+    }
+
+
 
 
 }

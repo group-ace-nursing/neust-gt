@@ -47,6 +47,7 @@ $routes->group('neust_gt/api/v1', function($routes){
 		$routes->post('changePassword', 'Users::ChangePassword');
 		$routes->get('getUsersList', 'Users::getAllUserList');
 		$routes->post('getUserById', 'Users::getUserDetails');
+		$routes->post('submit/survey', 'Users::submitSurvey');
 	});
 
 	$routes->group('analytics', function($routes){
