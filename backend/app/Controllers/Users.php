@@ -162,7 +162,7 @@ class Users extends BaseController
 
             $empbilityData =  [
                 'gradId' => $data->userId,
-                "response" => json_encode($data->emplemployability)
+                "response" => json_encode($data->employability)
             ];
             $this->userModel->insertEmployability($empbilityData);
 

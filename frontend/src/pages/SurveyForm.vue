@@ -1326,6 +1326,276 @@ export default {
 
                 })
             })
+        },
+        resetForm(){
+            this.step = 1
+            this.form = {
+                // Educ Background
+                degreeDetails: [
+                    {
+                        degree: '',
+                        university: '',
+                        year: '',
+                        awards: '',
+                    }
+                ],
+                examPassed: [],
+                reasonsTogetTheCourse: [
+                    {  
+                        label: 'High grades in the course or subject area(s) related to the course',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Good grades in high school',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Influence of parents or relatives ',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Peer Influence ',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Inspired by a role model ',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Strong passion for the profession',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Prospect for immediate employment ',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Status or prestige of the profession ',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Availability of course offering in chosen institution',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Prospect of career advancement ',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Affordable for the family ',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Prospect of attractive compensation',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Opportunity for employment abroad',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'No particular choice or no better idea ',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    },
+                    {  
+                        label: 'Others, please specify: ',
+                        valueUndergrd: false,
+                        valueMasteral: false
+                    }
+                ],
+                trainings: [],
+                reasonToPursue: '',
+                reasonToPursueOthers: '',
+
+                // Employment
+                isEmployed: 'No',
+                employmentStatus: '',
+                reasonNotEmployed: [],
+                othersReason: '',
+                occupation: '',
+                ifSelfEmployed: '',
+                typeOfCompany: '',
+                placeOfWork: '',
+                isFirstJob: 'Yes',
+                reasonToStayJob: [],
+                reasonToStayJobOthers: '',
+                reasonToAcceptJob: [],
+                reasonToAcceptJobOthers: '',
+                reasonToChangeJob: [],
+                reasonToChangeJobOthers: '',
+                stayInJob: '',
+                stayInJobOthers: '',
+                howLongToGetJob: '',
+                howLongToGetJobOthers: '',
+                howFirstJobFind: '',
+                howFirstJobFindOthers: '',
+                jobLevel: [
+                    {  
+                        label: 'Rank or Clerical',
+                        firstJob: false,
+                        presentJob: false
+                    },
+                    {  
+                        label: 'Professional, Technical or Supervisory',
+                        firstJob: false,
+                        presentJob: false
+                    },
+                    {  
+                        label: 'Managerial or Executive',
+                        firstJob: false,
+                        presentJob: false
+                    },
+                    {  
+                        label: 'Self-employed',
+                        firstJob: false,
+                        presentJob: false
+                    },
+                ],
+                grossMonthly: '',
+                competenciesLearn: [],
+                competenciesLearnOthers: '',
+                recommendation: '',
+                employability: [
+                    {
+                        title: "Understanding (Knowledge of the field)",
+                        rangeScore: [4,3,2,1],
+                        questions: [
+                            {
+                                title: "I have a clear comprehension of my job roles and responsibilities",
+                                order: 1,
+                                score: 0
+                            },
+                            {
+                                title: "I understand how my work contributes to the overall goals of my organization",
+                                order: 2,
+                                score: 0
+                            },
+                            {
+                                title: "I am aware of the industry standards relevant to my profession.",
+                                order: 3,
+                                score: 0
+                            },
+                            {
+                                title: "I keep myself informed about the latest developments in my field.",
+                                order: 4,
+                                score: 0
+                            },
+                            {
+                                title: "I understand the expectations of my employer regarding my performance.",
+                                order: 5,
+                                score: 0
+                            },
+                        ]
+                    },
+                    {
+                        title: "Skills (Practical and transferable abilities)",
+                        rangeScore: [4,3,2,1],
+                        questions: [
+                            {
+                                title: "Technical Skills: I possess the technical skills necessary to perform my job effectively.",
+                                order: 6,
+                                score: 0
+                            },
+                            {
+                                title: "Critical Thinking and Problem-Solving: I can analyze complex problems and develop effective solutions.",
+                                order: 7,
+                                score: 0
+                            },
+                            {
+                                title: "Soft Skills: I communicate effectively with colleagues and clients.",
+                                order: 8,
+                                score: 0
+                            },
+                            {
+                                title: "Leadership and Management: I can manage team members efficiently.",
+                                order: 9,
+                                score: 0
+                            },
+                            {
+                                title: "Adaptability and Continuous Learning: I quickly adapt to new work environments.",
+                                order: 10,
+                                score: 0
+                            },
+                        ]
+                    },
+                    {
+                        title: "Efficacy (Confidence in capabilities)",
+                        rangeScore: [4,3,2,1],
+                        questions: [
+                            {
+                                title: "I have confidence in my ability to perform my job successfully.",
+                                order: 11,
+                                score: 0
+                            },
+                            {
+                                title: "I believe I can overcome work-related challenges.",
+                                order: 12,
+                                score: 0
+                            },
+                            {
+                                title: "I am motivated to achieve my professional goals.",
+                                order: 13,
+                                score: 0
+                            },
+                            {
+                                title: "I take proactive steps to improve my performance and career prospects.",
+                                order: 14,
+                                score: 0
+                            },
+                            {
+                                title: "I maintain a positive mindset and resilience when facing setbacks.",
+                                order: 15,
+                                score: 0
+                            },
+                        ]
+                    },
+                    {
+                        title: "Metacognition (Self-awareness in learning)",
+                        rangeScore: [4,3,2,1],
+                        questions: [
+                            {
+                                title: "I regularly reflect on my performance to identify areas for improvement.",
+                                order: 16,
+                                score: 0
+                            },
+                            {
+                                title: "I am aware of my strengths and weaknesses in my professional abilities.",
+                                order: 17,
+                                score: 0
+                            },
+                            {
+                                title: "I set specific goals for my professional development and work towards achieving them.",
+                                order: 18,
+                                score: 0
+                            },
+                            {
+                                title: "I adjust my work strategies based on feedback and self-evaluation",
+                                order: 19,
+                                score: 0
+                            },
+                            {
+                                title: "I seek out learning opportunities to enhance my knowledge and skills.",
+                                order: 20,
+                                score: 0
+                            },
+                        ]
+                    }
+                ]
+            }
         }
     }
 }
