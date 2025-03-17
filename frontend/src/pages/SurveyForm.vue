@@ -523,7 +523,7 @@
                 </div>
 
                 <q-stepper-navigation>
-                    <q-btn @click="step = 4" color="primary" label="Continue" />
+                    <q-btn @click="step = 3" color="primary" label="Continue" />
                     <q-btn flat @click="step = 1" color="primary" label="Back" class="q-ml-sm" />
                 </q-stepper-navigation>
             </q-step>
@@ -532,10 +532,58 @@
                 :name="3"
                 title="Employability Survey"
                 icon="assignment"
-                caption="Coming Soon"
-                disable
             >
-                This step won't show up because it is disabled.
+                <div class="row">
+                    <div class="col-12">
+                        DIRECTIONS: The following statements assess various aspects of employability among BSN
+                        graduates. Please indicate the extent to which you agree or disagree with each statement using
+                        the rating scale below:
+                    </div>
+                    <div class="col-12">
+                        <span class="text-bold">Rating Scale:</span> <br/>
+                        <span>4 - Strongly Agree</span><br/>
+                        <span>3 - Agree</span><br/>
+                        <span>2 - Disagree</span><br/>
+                        <span>1 - Strongly Disagree</span><br/>
+                    </div>
+                    <div class="col-12">
+                        How can you describe your employability based on the following:
+                    </div>
+                    <div
+                        v-for="(item, index) in form.employability"
+                        :key="index"
+                        class="col-12 q-mt-md"
+                    >
+                        <span class="text-bold">{{ item.title }}</span>
+
+                        <q-list>
+                            <q-item v-for="(qItem, idx) in item.questions" :key="idx">
+                                <q-item-section>
+                                    <q-item-label>
+                                        {{ qItem.order }}. {{ qItem.title }}
+                                    </q-item-label>
+                                </q-item-section>
+
+                                <q-item-section class="text-center" v-for="(rItem, rindx) in item.rangeScore" :key="rindx" side top>
+                                    <q-item-label>
+                                        <q-radio 
+                                            v-model="qItem.score" 
+                                            :val="rItem"
+                                            :label="rItem"
+                                            color="orange" 
+                                        />
+                                    </q-item-label>
+                                    
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                    </div>
+                </div>
+
+                <q-stepper-navigation>
+                    <q-btn @click="step = 4" color="primary" label="Continue" />
+                    <q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" />
+                </q-stepper-navigation>
             </q-step>
 
             <q-step
@@ -585,7 +633,7 @@
 
                 <q-stepper-navigation>
                     <q-btn @click="submitFormSurvey" color="primary" label="Submit" />
-                    <q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" />
+                    <q-btn flat @click="step = 3" color="primary" label="Back" class="q-ml-sm" />
                 </q-stepper-navigation>
             </q-step>
         </q-stepper>
@@ -765,7 +813,133 @@ export default {
                 grossMonthly: '',
                 competenciesLearn: [],
                 competenciesLearnOthers: '',
-                recommendation: ''
+                recommendation: '',
+                employability: [
+                    {
+                        title: "Understanding (Knowledge of the field)",
+                        rangeScore: [4,3,2,1],
+                        questions: [
+                            {
+                                title: "I have a clear comprehension of my job roles and responsibilities",
+                                order: 1,
+                                score: 0
+                            },
+                            {
+                                title: "I understand how my work contributes to the overall goals of my organization",
+                                order: 2,
+                                score: 0
+                            },
+                            {
+                                title: "I am aware of the industry standards relevant to my profession.",
+                                order: 3,
+                                score: 0
+                            },
+                            {
+                                title: "I keep myself informed about the latest developments in my field.",
+                                order: 4,
+                                score: 0
+                            },
+                            {
+                                title: "I understand the expectations of my employer regarding my performance.",
+                                order: 5,
+                                score: 0
+                            },
+                        ]
+                    },
+                    {
+                        title: "Skills (Practical and transferable abilities)",
+                        rangeScore: [4,3,2,1],
+                        questions: [
+                            {
+                                title: "Technical Skills: I possess the technical skills necessary to perform my job effectively.",
+                                order: 6,
+                                score: 0
+                            },
+                            {
+                                title: "Critical Thinking and Problem-Solving: I can analyze complex problems and develop effective solutions.",
+                                order: 7,
+                                score: 0
+                            },
+                            {
+                                title: "Soft Skills: I communicate effectively with colleagues and clients.",
+                                order: 8,
+                                score: 0
+                            },
+                            {
+                                title: "Leadership and Management: I can manage team members efficiently.",
+                                order: 9,
+                                score: 0
+                            },
+                            {
+                                title: "Adaptability and Continuous Learning: I quickly adapt to new work environments.",
+                                order: 10,
+                                score: 0
+                            },
+                        ]
+                    },
+                    {
+                        title: "Efficacy (Confidence in capabilities)",
+                        rangeScore: [4,3,2,1],
+                        questions: [
+                            {
+                                title: "I have confidence in my ability to perform my job successfully.",
+                                order: 11,
+                                score: 0
+                            },
+                            {
+                                title: "I believe I can overcome work-related challenges.",
+                                order: 12,
+                                score: 0
+                            },
+                            {
+                                title: "I am motivated to achieve my professional goals.",
+                                order: 13,
+                                score: 0
+                            },
+                            {
+                                title: "I take proactive steps to improve my performance and career prospects.",
+                                order: 14,
+                                score: 0
+                            },
+                            {
+                                title: "I maintain a positive mindset and resilience when facing setbacks.",
+                                order: 15,
+                                score: 0
+                            },
+                        ]
+                    },
+                    {
+                        title: "Metacognition (Self-awareness in learning)",
+                        rangeScore: [4,3,2,1],
+                        questions: [
+                            {
+                                title: "I regularly reflect on my performance to identify areas for improvement.",
+                                order: 16,
+                                score: 0
+                            },
+                            {
+                                title: "I am aware of my strengths and weaknesses in my professional abilities.",
+                                order: 17,
+                                score: 0
+                            },
+                            {
+                                title: "I set specific goals for my professional development and work towards achieving them.",
+                                order: 18,
+                                score: 0
+                            },
+                            {
+                                title: "I adjust my work strategies based on feedback and self-evaluation",
+                                order: 19,
+                                score: 0
+                            },
+                            {
+                                title: "I seek out learning opportunities to enhance my knowledge and skills.",
+                                order: 20,
+                                score: 0
+                            },
+                        ]
+                    }
+                ]
             },
         }
     },

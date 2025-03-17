@@ -160,6 +160,13 @@ class Users extends BaseController
             $this->userModel->insertEmployement($employeeData);
 
 
+            $empbilityData =  [
+                'gradId' => $data->userId,
+                "response" => json_encode($data->emplemployability)
+            ];
+            $this->userModel->insertEmployability($empbilityData);
+
+
             $response = [
                 'title' => 'Survey Submitted',
                 'message' => 'User data has been successfully saved.'

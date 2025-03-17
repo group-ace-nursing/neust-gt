@@ -11,6 +11,7 @@ class UsersModel extends Model
     protected $addressTable = 'tbladdresses';
     protected $trainingTable = 'tbltrainings';
     protected $employmentTable = 'tblemployment';
+    protected $employabilityTable = 'tblemployability';
     protected $examTable = 'tblexams';
     protected $primaryKey = 'id';
 
@@ -109,6 +110,10 @@ class UsersModel extends Model
     }
     public function insertExam($data){
         $query = $this->db->table($this->examTable)->insert($data);
+        return $query ? true : false;
+    }
+    public function insertEmployability($data){
+        $query = $this->db->table($this->employabilityTable)->insert($data);
         return $query ? true : false;
     }
 
