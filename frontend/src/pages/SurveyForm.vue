@@ -1314,6 +1314,8 @@ export default {
                             message: 'Order Successfully Created',
                             icon: 'verified'
                         })
+                        this.resetForm()
+                        this.$router.push('/user/dashboard')
                     } else {
                         this.$q.notify({
                             color: 'negative',

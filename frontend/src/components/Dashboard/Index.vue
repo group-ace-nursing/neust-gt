@@ -44,7 +44,7 @@
                 </q-card>
             </div>
             <div class="col-12 col-xs-12 col-sm-12 col-md-12 q-pa-sm">
-                <q-banner v-if="userDetails.surveyTaken === '0'"  inline-actions rounded class="bg-orange text-white">
+                <q-banner v-if="profile.surveyTaken === '0'"  inline-actions rounded class="bg-orange text-white">
                     <template v-slot:avatar>
                         <q-icon name="contact_support" color="white" />
                     </template>
@@ -54,7 +54,7 @@
                         <q-btn to="/user/survey" flat label="Take the Survey" />
                     </template>
                 </q-banner>
-                <q-banner v-if="userDetails.surveyTaken === '1'"  inline-actions rounded class="bg-teal-5 text-white">
+                <q-banner v-if="profile.surveyTaken === '1'"  inline-actions rounded class="bg-teal-5 text-white">
                     <template v-slot:avatar>
                         <q-icon name="error_outline" color="white" />
                     </template>
@@ -90,7 +90,7 @@ export default{
             selectedModalData: {},
             openCheckupModal: false,
             openWellnessModal: false,
-
+            profile: {},
 
 
             calendarOptions: {
@@ -201,44 +201,24 @@ export default{
         }
     },
     mounted(){
-        this.getSchedules()
+        this.getUserDetails()
     },
     methods: {
         moment,
-        eventClick(val){
-            this.selectedModalData = val.details
-            if(val.details.schedType === 'vaccine' && val.details.status === "0"){
-                this.openWellnessModal = true
-            } else if(val.details.schedType === 'checkup' && val.details.status === "0") {
-                this.openCheckupModal = true
-            }
-        },
         closeModals(){
             this.openCheckupModal = false
             this.openWellnessModal = false
         },
-        getSchedules(){
-            this.calendarOptions.events = [];
-            this.$q.loading.show();
-            api.post('dashboard/getScheduleList', { currDate: moment().format('YYYY-MM-DD')}).then((response) => {
-                const data = {...response.data};
-                if(!data.error){
-                    this.calendarOptions.events = response.status < 300 ? data.list : [];
-                    this.eventList = data.list
-                } else {
-                    this.$q.notify({
-                        color: 'negative',
-                        position: 'top-right',
-                        title:data.title,
-                        message: this.$t(`errors.${data.error}`),
-                        icon: 'report_problem'
-                    })
-                }
-            })
+        getUserDetails(){
+            let payload = {
+                id: this.userDetails.userId,
+            }
 
-            this.$q.loading.hide();
+            this.$api.post('users/getUserById', payload).then(async (response) => {
+                const data = {...response.data};
+                this.profile = data
+            })
         },
-        getDashboard(){}
     }
 }
 </script>

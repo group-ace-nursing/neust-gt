@@ -62,12 +62,12 @@ const linksList = [
     link: 'dashboard',
     code: 2,
   },
-  {
-    title: 'Survey Forms',
-    icon: 'assessment',
-    link: 'survey',
-    code: 2,
-  },
+  // {
+  //   title: 'Survey Forms',
+  //   icon: 'assessment',
+  //   link: 'survey',
+  //   code: 2,
+  // },
   {
     title: 'Profile',
     icon: 'manage_accounts',
