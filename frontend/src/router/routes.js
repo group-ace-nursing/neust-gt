@@ -19,13 +19,13 @@ const routes = [
       { path: 'survey', name: 'survey', component: () => import('pages/SurveyForm.vue') },
     ]
   },
-  // {
-  //   path: '/admin',
-  //   component: () => import('layouts/LoginLayout.vue'),
-  //   children: [
-  //     { path: 'dashboard', name: 'dashboard', component: () => import('pages/Dashboard.vue') },
-  //   ]
-  // },
+  {
+    path: '/admin',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
+      { path: 'dashboard', name: 'dashboard', component: () => import('pages/Admin/Dashboard.vue') },
+    ]
+  },
   
   
 

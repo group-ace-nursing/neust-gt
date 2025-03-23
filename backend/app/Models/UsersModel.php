@@ -70,6 +70,60 @@ class UsersModel extends Model
 
     }
 
+
+    public function getSurveyResponses(){
+
+        $sql = "SELECT  
+            a.id AS user_id,
+            a.createdDate AS survey_timestamp,
+            a.*, 
+            b.*, 
+            c.*, 
+            d.* FROM tblusers a 
+            LEFT JOIN tbladdresses b ON a.id = b.gradId
+            LEFT JOIN tblemployment c ON a.id = c.gradId
+            LEFT JOIN tblemployability d ON a.id = d.gradId
+            WHERE a.surveyTaken = 2";
+       
+        $query = $this->db->query($sql);
+        $results = $query->getResult();
+
+        $all = array_map(function($el){
+            $el->competenciesLearn = json_decode($el->competenciesLearn);
+            $el->degreeDetails = json_decode($el->degreeDetails);
+            $el->jobLevel = json_decode($el->jobLevel);
+            $el->reasonNotEmployed = json_decode($el->reasonNotEmployed);
+            $el->reasonToAcceptJob = json_decode($el->reasonToAcceptJob);
+            $el->reasonToChangeJob = json_decode($el->reasonToChangeJob);
+            $el->reasonsToStayJob = json_decode($el->reasonsToStayJob);
+            $el->reasonsTogetTheCourse = json_decode($el->reasonsTogetTheCourse);
+            $el->response = json_decode($el->response);
+            $el->reasonToPursue = json_decode($el->reasonToPursue);
+
+
+            $exams = $this->db->table($this->examTable)->where('gradId', $el->user_id)->get()->getResult();
+            $el->examList = $exams;
+            $trainings = $this->db->table($this->trainingTable)->where('gradId', $el->user_id)->get()->getResult();
+            $el->trainingList = $trainings;
+
+            return $el;
+        }, $results);
+
+        return $all;
+
+    }
+
+    public function getSurveyNoResponses(){
+
+        $sql = "SELECT * FROM tblusers a WHERE a.surveyTaken = 0";
+       
+        $query = $this->db->query($sql);
+        $results = $query->getResult();
+
+        return $results;
+
+    }
+
     public function getAllUserInfo(){
 
         $query = $this->db->table($this->table)->get();

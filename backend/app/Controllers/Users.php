@@ -334,6 +334,190 @@ class Users extends BaseController
     }
 
 
+    public function getListOfSurvey(){
+
+        // $header = $this->request->getHeader("");
+        
+        $list = [];
+        $query = $this->userModel->getSurveyResponses();
+
+        foreach ($query as $key => $value){
+
+            //reason_for_taking_the_course
+            $reason_for_taking_the_course = [];
+            foreach ($value->reasonsTogetTheCourse as $rkey => $rvalue) {
+                $keyVal = 'Reason_for_taking_the_course_or_pursuing_degree - '. $rvalue->label;
+                $resValue = "";
+                if($rvalue->valueUndergrd){
+                    $resValue = "Undergraduate/AB/BS (Bachelor of Arts/Bachelor of Science)";
+                } else if($rvalue->valueUndergrd){
+                    $resValue = "Graduate/MS/MA/PhD (Master of Science/Masteral/Doctorate)";
+                }
+
+                $reason_for_taking_the_course[$keyVal] = $resValue;
+            } 
+
+            // training details
+            
+            $titlesTraining = [];
+            $durationTraining = [];
+            $instiTraining = [];
+            foreach ($value->trainingList as $tkey => $tvalue) {
+                $titlesTraining[$tkey] = $tvalue->title ?? 'N/A'; // Assuming 'title' is a property
+                $durationTraining[$tkey] = $tvalue->duration ?? 'N/A'; // Assuming 'duration' is a property
+                $instiTraining[$tkey] = $tvalue->institution ?? 'N/A'; // Assuming 'institution' is a property
+            }
+            
+            // Combine the training details into a single array
+            $training_details = [
+                'Title of Training or Advance Study' => implode(', ', $titlesTraining),
+                'Duration and Credits Earned' => implode(', ', $durationTraining),
+                'Name of Training Institution/College/University' => implode(', ', $instiTraining),
+            ];
+
+            //  Employment
+            $employment = [
+                'What made you pursue advanced studies' => $value->reasonToPursue ?? $value->reasonToPursueOthers,
+                'Are you presently employed' => $value->isEmployed,
+                'Reason(s) why you are not yet employed' => implode(', ', $value->reasonNotEmployed) ?? $value->otherReason,
+                'Present Employment Status' => $value->employmentStatus,
+                'If self-employed, what skills acquired in college were you able to apply in your work' => $value->ifSelfEmployed,
+                'Present occupation' => $value->occupation,
+                'Major line of business of the company are presently employed' => $value->typeOfCompany,
+                'Place of work' => $value->placeOfWork,
+                'Is first job after college' => $value->isFirstJob,
+                'Reason(s) for staying on the job' => implode(', ', $value->reasonsToStayJob) ?? $value->reasonsToStayJobOthers,
+                'Reasons for accepting the job' => implode(', ', $value->reasonToAcceptJob) ?? $value->reasonToAcceptJobOthers,
+                'Reason(s) for changing your job' => implode(', ', $value->reasonToChangeJob) ?? $value->reasonToChangeJobOthers,
+                'Stay in first job' => $value->stayInJob ?? $value->stayInJobOthers,
+                'How did you find your first job' => $value->howFirstJobFind ?? $value->howFirstJobFindOthers,
+                'How long did it take you to land your first job' => $value->howLongToGetJob ?? $value->howLongToGetJobOthers
+            ];
+
+
+            // Job Level
+            $job_level = [];
+            foreach ($value->jobLevel as $jkey => $jvalue) {
+                $keyjVal = 'Job Level ['. $jvalue->label .']';
+                $resjValue = "";
+                if($jvalue->firstJob){
+                    $resjValue = "First Job";
+                } else if($jvalue->presentJob){
+                    $resjValue = "Present Job";
+                } else if($jvalue->firstJob && $jvalue->presentJob) {
+                    $resjValue = "First Job & Present Job";
+                }
+
+                $job_level[$keyjVal] = $resjValue;
+            } 
+
+            // Employment 2
+            $employment2 = [
+                'Initial gross monthly earnings in your first job after college' => $value->grossMonthly
+            ];
+            
+
+            // Employability
+            $employability = [];
+            foreach ($value->response as $ekey => $evalue) {
+                foreach ($evalue->questions as $qkey => $qvalue) {
+                    $keyqVal = $evalue->title .' ['. $qvalue->title .']';
+                    $resqValue = $qvalue->score;
+
+                    $employability[$keyqVal] = $resqValue;
+                }
+            } 
+
+            // competencies
+            $competencies = [
+                'Competencies learned in college did you find very useful in your first job' => implode(', ', $value->competenciesLearn) ?? $value->competenciesLearnOthers,
+                'List down suggestions to further improve your program curriculum.' => $value->recommendation
+            ];
+            
+            
+            $list['list'][$key] = array_merge([
+                'timestamp' => $value->survey_timestamp,
+                'name' => $value->fullName,
+                'permanent_address' => $value->permanentAddress,
+                'email' => $value->email,
+                'telephone' => $value->telephone,
+                'mobile' => $value->contact,
+                'civilStatus' => $value->civilStatus,
+                'sex' => $value->sex,
+                'birthday' => $value->birthDate,
+                'region_Of_Origin' => $value->region,
+                'province' => $value->province,
+                'location_of_residence' => $value->locality,
+                'degree_and_specialization' => $value->degreeDetails[0]->degree,
+                'college_or_university' => $value->degreeDetails[0]->university,
+                'year_Graduate' => $value->degreeDetails[0]->year,
+                'honor_or_awards_received' => $value->degreeDetails[0]->awards,
+                
+            ], $reason_for_taking_the_course, $training_details, $employment, $job_level, $employment2, $employability, $competencies);
+        }
+
+        if($list){
+            return $this->response
+                    ->setStatusCode(200)
+                    ->setContentType('application/json')
+                    ->setBody(json_encode($list));
+        } else {
+            $response = [
+                'title' => 'Error',
+                'message' => 'No Data Found'
+            ];
+
+            return $this->response
+                    ->setStatusCode(400)
+                    ->setContentType('application/json')
+                    ->setBody(json_encode($response));
+        }
+    }
+
+    public function getListOfSurveyNoRespond(){
+
+        // $header = $this->request->getHeader("");
+        
+        $list = [];
+        $query = $this->userModel->getSurveyNoResponses();
+
+        foreach ($query as $key => $value){
+
+            
+            $list['list'][$key] = [
+                'name' => $value->fullName,
+                'email' => $value->email,
+                'telephone' => $value->telephone,
+                'mobile' => $value->contact,
+                'civilStatus' => $value->civilStatus,
+                'sex' => $value->sex,
+                'birthday' => $value->birthDate,
+                'degree_and_specialization' => $value->degreeDetails[0]->degree ?? 'N/A',
+                'college_or_university' => $value->degreeDetails[0]->university ?? 'N/A',
+                'year_Graduate' => $value->degreeDetails[0]->year ??  $value->yearGraduated,
+                'honor_or_awards_received' => $value->degreeDetails[0]->awards ?? 'N/A',
+            ];
+        }
+
+        if($list){
+            return $this->response
+                    ->setStatusCode(200)
+                    ->setContentType('application/json')
+                    ->setBody(json_encode($list));
+        } else {
+            $response = [
+                'title' => 'Error',
+                'message' => 'No Data Found'
+            ];
+
+            return $this->response
+                    ->setStatusCode(400)
+                    ->setContentType('application/json')
+                    ->setBody(json_encode($response));
+        }
+    }
+
+
     public function getAllInactiveUserList(){
         
         $list = [];

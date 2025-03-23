@@ -597,8 +597,7 @@
                             If this is your first job, what competencies learned in college did you find very useful in your first job? You may check () more than one answer.
                         </span>
                     </div>
-                    <div class="col-12">
-                        <span class="text-bold">What were your reason(s) for changing your job? You may select more than one answer.</span>
+                    <div class="col-12 q-mt-md">
                         <div class="q-gutter-sm">
                             <q-checkbox 
                                 v-for="(item, index) in getChecklist.competencies" 
@@ -609,7 +608,7 @@
                                 color="orange" 
                             />
                         </div>
-                        <div class="q-mt-sm" v-if="form.competenciesLearn.includes('Other reason(s), please specify')">
+                        <div class="q-mt-sm" v-if="form.competenciesLearn.includes('Other skills, please specify')">
                             <q-input
                                 dense
                                 v-model="form.competenciesLearnOthers"
@@ -618,7 +617,7 @@
                             ></q-input>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 q-mt-md">
                         <span class="text-bold">List down suggestions to further improve your program curriculum.</span>
                         <q-space />
                         <q-input

@@ -57,14 +57,13 @@
         "Other reason(s), please specify"
     ],
     "competencies": [
-        "Response to an advertisemen",
-        "As walk-in applicant",
-        "Recommended by someone",
-        "Information from friends",
-        "Arranged by school’s job placement officer",
-        "Family business",
-        "Job Fair or Public Employment Service Office (PESO)",
-        "Other reason(s), please specify"
+        "Communication skills",
+        "Human Relations skills",
+        "Entrepreneurial skills",
+        "Information Technology skills",
+        "Problem-solving skills",
+        "Critical Thinking skills",
+        "Other skills, please specify"
     ],
     "salary": [
         "Below P5,000.00",

@@ -48,6 +48,11 @@ $routes->group('neust_gt/api/v1', function($routes){
 		$routes->get('getUsersList', 'Users::getAllUserList');
 		$routes->post('getUserById', 'Users::getUserDetails');
 		$routes->post('submit/survey', 'Users::submitSurvey');
+
+
+		// Admin Dashboard Response List
+		$routes->post('survey/response', 'Users::getListOfSurvey');
+		$routes->post('survey/noresponse', 'Users::getListOfSurveyNoRespond');
 	});
 
 	$routes->group('analytics', function($routes){
