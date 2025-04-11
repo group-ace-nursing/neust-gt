@@ -349,7 +349,7 @@ class Users extends BaseController
             foreach ($value->examList as $tkey => $tvalue) {
                 $examsName[$tkey] = $tvalue->examName ?? 'N/A'; // Assuming 'title' is a property
                 $datesTaken[$tkey] = $tvalue->dateTaken ?? 'N/A'; // Assuming 'duration' is a property
-                $ratings[$tkey] = $tvalue->rating ?? 'N/A'; // Assuming 'institution' is a property
+                $ratings[$tkey] = $tvalue->ratings ?? 'N/A'; // Assuming 'institution' is a property
             }
             
             // Combine the training details into a single array
