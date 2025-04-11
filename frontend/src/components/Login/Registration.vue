@@ -323,7 +323,8 @@ export default {
       let vm = this;
       let payload = {
         ...vm.form,
-        birthDate: vm.form.birthDate ? moment(vm.form.birthDate).format('LL') : ""
+        birthDate: vm.form.birthDate ? moment(vm.form.birthDate).format('LL') : "",
+        surveyTaken: this.form.userType === '2' ? 5 : 0
       };
 
       this.$api.post('users/create', payload).then(async (response) => {

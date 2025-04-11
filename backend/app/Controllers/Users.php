@@ -342,6 +342,23 @@ class Users extends BaseController
         $query = $this->userModel->getSurveyResponses();
 
         foreach ($query as $key => $value){
+            // Exaination
+            $examsName = [];
+            $datesTaken = [];
+            $ratings = [];
+            foreach ($value->trainingList as $tkey => $tvalue) {
+                $examsName[$tkey] = $tvalue->examName ?? 'N/A'; // Assuming 'title' is a property
+                $datesTaken[$tkey] = $tvalue->dateTaken ?? 'N/A'; // Assuming 'duration' is a property
+                $ratings[$tkey] = $tvalue->rating ?? 'N/A'; // Assuming 'institution' is a property
+            }
+            
+            // Combine the training details into a single array
+            $examinations = [
+                'Name of Examination' => implode(', ', $examsName),
+                'Date Taken' => implode(', ', $datesTaken),
+                'Rating' => implode(', ', $ratings),
+            ];
+
 
             //reason_for_taking_the_course
             $reason_for_taking_the_course = [];
@@ -436,24 +453,24 @@ class Users extends BaseController
             
             
             $list['list'][$key] = array_merge([
-                'timestamp' => $value->survey_timestamp,
-                'name' => $value->fullName,
-                'permanent_address' => $value->permanentAddress,
-                'email' => $value->email,
-                'telephone' => $value->telephone,
-                'mobile' => $value->contact,
-                'civilStatus' => $value->civilStatus,
-                'sex' => $value->sex,
-                'birthday' => $value->birthDate,
-                'region_Of_Origin' => $value->region,
-                'province' => $value->province,
-                'location_of_residence' => $value->locality,
-                'degree_and_specialization' => $value->degreeDetails[0]->degree,
-                'college_or_university' => $value->degreeDetails[0]->university,
-                'year_Graduate' => $value->degreeDetails[0]->year,
-                'honor_or_awards_received' => $value->degreeDetails[0]->awards,
+                'Timestamp' => $value->survey_timestamp,
+                'Name' => $value->fullName,
+                'Permanent Address' => $value->permanentAddress,
+                'Email' => $value->email,
+                'Telephone' => $value->telephone,
+                'Mobile' => $value->contact,
+                'Civil Status' => $value->civilStatus,
+                'Sex' => $value->sex,
+                'Birthday' => $value->birthDate,
+                'Region Of Origin' => $value->region,
+                'Province' => $value->province,
+                'Location Of Residence' => $value->locality,
+                'Degree And Specialization' => $value->degreeDetails[0]->degree,
+                'College Or University' => $value->degreeDetails[0]->university,
+                'Year Graduate' => $value->degreeDetails[0]->year,
+                'Honor Or Awards Received' => $value->degreeDetails[0]->awards,
                 
-            ], $reason_for_taking_the_course, $training_details, $employment, $job_level, $employment2, $employability, $competencies);
+            ], $examinations, $reason_for_taking_the_course, $training_details, $employment, $job_level, $employment2, $employability, $competencies);
         }
 
         if($list){

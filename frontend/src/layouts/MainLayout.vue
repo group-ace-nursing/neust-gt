@@ -60,15 +60,7 @@ export default defineComponent({
   created(){
     let profile = LocalStorage.getItem('userData');
 
-    if(profile){
-      this.userProfile = jwt_decode(profile);
-      if(Number(this.userProfile.utype) === 2){
-        this.$router.push('user/dashboard')
-      } else {
-        this.$router.push('admin/dashboard')
-      }
-          
-    } else {
+    if(!profile){
       this.$router.push('/')
     }
     
