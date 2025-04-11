@@ -346,7 +346,7 @@ class Users extends BaseController
             $examsName = [];
             $datesTaken = [];
             $ratings = [];
-            foreach ($value->trainingList as $tkey => $tvalue) {
+            foreach ($value->examList as $tkey => $tvalue) {
                 $examsName[$tkey] = $tvalue->examName ?? 'N/A'; // Assuming 'title' is a property
                 $datesTaken[$tkey] = $tvalue->dateTaken ?? 'N/A'; // Assuming 'duration' is a property
                 $ratings[$tkey] = $tvalue->rating ?? 'N/A'; // Assuming 'institution' is a property
